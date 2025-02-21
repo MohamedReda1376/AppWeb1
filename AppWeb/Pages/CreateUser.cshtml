@@ -1,0 +1,67 @@
+﻿@page
+@model AppWeb.Pages.CreateUserModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Créer un nouvel utilisateur</title>
+</head>
+<body>
+    <h1>Créer un nouvel utilisateur</h1>
+
+    <form method="post">
+        <!-- First Name -->
+        <div>
+            <label for="FirstName">Prénom:</label>
+            <input type="text" id="FirstName" name="NewUser.FirstName" required>
+        </div>
+        <br>
+
+        <!-- Last Name -->
+        <div>
+            <label for="LastName">Nom:</label>
+            <input type="text" id="LastName" name="NewUser.LastName" required>
+        </div>
+        <br>
+
+        <!-- Email -->
+        <div>
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" name="NewUser.Email" required>
+        </div>
+        <br>
+
+        <!-- Password -->
+        <div>
+            <label for="PasswordHash">Mot de passe:</label>
+            <input type="password" id="PasswordHash" name="NewUser.PasswordHash" required>
+        </div>
+        <br>
+
+        <!-- Role -->
+        <div>
+            <label for="Role">Rôle:</label>
+            <input type="text" id="Role" name="NewUser.Role" required>
+        </div>
+        <br>
+
+        <!-- Created At -->
+        <div>
+            <label for="CreatedAt">Date de création:</label>
+            <input type="text" id="CreatedAt" name="NewUser.CreatedAt" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly>
+        </div>
+        <br>
+
+        <!-- Submit Button -->
+        <div>
+            <button type="submit">Créer</button>
+        </div>
+    </form>
+
+    <br>
+    <a href="/">
+        <button>Retour</button>
+    </a>
+</body>
+</html>

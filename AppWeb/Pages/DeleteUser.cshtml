@@ -1,0 +1,11 @@
+﻿@page
+@model DeleteUserModel
+
+<h2>Supprimer un utilisateur</h2>
+<p>Voulez-vous vraiment supprimer cet utilisateur ?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="User.Id" />
+    <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+    <a asp-page="Index" class="btn btn-secondary">Annuler</a>
+</form>

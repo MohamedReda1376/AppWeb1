@@ -1,0 +1,59 @@
+﻿@page
+@model AppWeb.Pages.IndexModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Affichage du premier utilisateur</title>
+</head>
+<body>
+    <h1>Premier utilisateur</h1>
+
+    @if (Model.FirstUser != null)
+    {
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Date de création</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.FirstUser.Id</td>
+                    <td>@Model.FirstUser.FirstName</td>
+                    <td>@Model.FirstUser.LastName</td>
+                    <td>@Model.FirstUser.Email</td>
+                    <td>@Model.FirstUser.Role</td>
+                    <td>@Model.FirstUser.CreatedAt</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Aucun utilisateur trouvé dans la base de données.</p>
+    }
+</body>
+<body>
+    <br>
+    <a href="/CreateUser">
+        <button>Créer un nouvel utilisateur</button>
+    </a>
+    <br>
+    <form method="get" action="/FoundUser">
+
+        <button type="submit">FindUser</button>
+    </form>
+    <form method="post" action="/User/DeleteUser">
+
+
+        <button type="submit">Supprimer</button>
+    </form>
+</body>
+</html>

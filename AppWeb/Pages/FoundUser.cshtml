@@ -1,0 +1,89 @@
+﻿@page
+@model AppWeb.Pages.FindUserModel
+
+<h2>Recherche d'utilisateur</h2>
+
+<form method="get">
+    <label for="name">Nom :</label>
+    <input type="text" id="name" name="Name" value="@Model.Name" />
+    <button type="submit">Rechercher</button>
+</form>
+
+@if (Model.FoundUsers.Count > 0)
+{
+    <h3>Utilisateurs trouvés :</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.FoundUsers)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <!-- Formulaire pour supprimer -->
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="UserId" value="@user.Id" />
+                            <button type="submit" asp-page-handler="Delete" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                Supprimer
+                            </button>
+                        </form>
+
+                        <!-- Bouton Modifier qui ouvre le formulaire -->
+                        <button type="button" onclick="openEditForm('@user.Id', '@user.FirstName', '@user.LastName', '@user.Email')">
+                            Modifier
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Formulaire de modification (caché au départ) -->
+    <div id="editForm" style="display:none; border:1px solid black; padding:10px; margin-top:20px;">
+        <h3>Modifier un utilisateur</h3>
+        <form method="post">
+            <input type="hidden" id="EditUserId" name="EditUser.Id" />
+
+            <label for="EditFirstName">Prénom :</label>
+            <input type="text" id="EditFirstName" name="EditUser.FirstName" required />
+
+            <label for="EditLastName">Nom :</label>
+            <input type="text" id="EditLastName" name="EditUser.LastName" required />
+
+            <label for="EditEmail">Email :</label>
+            <input type="email" id="EditEmail" name="EditUser.Email" required />
+
+            <button type="submit" asp-page-handler="Edit">Enregistrer</button>
+            <button type="button" onclick="closeEditForm()">Annuler</button>
+        </form>
+    </div>
+
+    <script>
+        function openEditForm(id, firstName, lastName, email) {
+            document.getElementById("EditUserId").value = id;
+            document.getElementById("EditFirstName").value = firstName;
+            document.getElementById("EditLastName").value = lastName;
+            document.getElementById("EditEmail").value = email;
+            document.getElementById("editForm").style.display = "block";
+        }
+
+        function closeEditForm() {
+            document.getElementById("editForm").style.display = "none";
+        }
+    </script>
+}
+else if (!string.IsNullOrEmpty(Model.Name))
+{
+    <p>Aucun utilisateur trouvé.</p>
+}
